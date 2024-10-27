@@ -1734,6 +1734,8 @@ class MegatronNevaModel(MultimodalAdapterModelMixin, MegatronGPTModel):
             return None
 
         original_sharded_state_dict = super().sharded_state_dict()
+        if original_sharded_state_dict is None:
+            return None
         keys_to_keep = self.get_keys_to_keep()
         new_sharded_state_dict = {k: original_sharded_state_dict[k] for k in keys_to_keep}
         return new_sharded_state_dict
